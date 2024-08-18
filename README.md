@@ -1,7 +1,9 @@
 # esp32-BykeSpeedMeter
+## 📌 Please WAIT about 1 min after u plug powerbant to esp32 with Oled and TinyGPS Module because it is searching for available satelite(s)
+### Then u re good to go :D
 
 ## Pin Connection
-### OLED Display --> esp32
+### OLED 0.96" Display --> esp32
 - VCC --> 3.3V
 - GND --> GND
 - SCL --> D22
