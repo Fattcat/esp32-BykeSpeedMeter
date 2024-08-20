@@ -4,7 +4,7 @@
 // Bitmap pre čas (16x16) ešte som nedal
 //const unsigned char realnycasbitmap [] = {
 
-};
+//};
 
 // Bitmap pre výšku (16x16)
 const unsigned char vyskabitmap [] = {
