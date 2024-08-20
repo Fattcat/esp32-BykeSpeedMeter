@@ -16,4 +16,4 @@
 - TX --> RX
 
 # Checkout photo
-! [](ArduinoEsp32GPS-OledBykeSpeedMeter.jpg)
+![Full Set](ArduinoEsp32GPS-OledBykeSpeedMeter.jpg)
