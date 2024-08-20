@@ -1,11 +1,10 @@
 #ifndef BITMAPS_H
 #define BITMAPS_H
 
-// Bitmap pre čas (16x16)
+// Bitmap pre čas (16x16) ešte som nedal
 //const unsigned char realnycasbitmap [] = {
-//  0x00, 0x3C, 0x42, 0x81, 0x81, 0xA5, 0x81, 0x81, 
-//  0x81, 0xA5, 0x81, 0x81, 0x42, 0x3C, 0x00, 0x00
-//};
+
+};
 
 // Bitmap pre výšku (16x16)
 const unsigned char vyskabitmap [] = {
