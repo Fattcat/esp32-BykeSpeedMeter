@@ -14,7 +14,6 @@
 // ! and then connect + Output from booster to esp32 Pin "VIN" and - to esp32 Pin "GND" !
 // ---------------------------------------------------------------------------------------
 
-
 // Nastavenie pre OLED displej 128x64
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -35,7 +34,7 @@ void setup() {
   gpsSerial.begin(9600, SERIAL_8N1, 16, 17);  // RX=GPIO16, TX=GPIO17
 
   // Inicializácia OLED displeja
-  if (!display.begin(SSD1306_PAGEADDR, 0x3C)) {
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println(F("OLED init failed"));
     for (;;);
   }
@@ -45,6 +44,39 @@ void setup() {
   display.setTextWrap(1);
   display.setTextColor(SSD1306_WHITE);
   display.setTextSize(1);
+
+
+  // ODPOCIVAVANIE OD Cisla 3 po Cislo 1
+  // -----------------------------------------------------------------
+  delay(2000);
+  display.drawBitmap(0,0, cislotri, 128, 64, SSD1306_WHITE);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  display.drawBitmap(0,0, cislodva, 128, 64, SSD1306_WHITE);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  display.drawBitmap(0, 0, cislojeden, 128, 64, SSD1306_WHITE);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  // -----------------------------------------------------------------
+
+  // Sem Bitmap pre cislotri, cislodva, cislojedna
+
+  // Zobrazenie "firstlogobitmap"
+  delay(200);
+  //display.setCursor(0, 0);
+  display.drawBitmap(0,0, logobitmap, 128, 64, SSD1306_WHITE);
+  display.display();
+  delay(3000);
+  
+  // Vycistenie po zobrazeni "firstlogobitmap"
+  display.clearDisplay();
 
   // Zobrazenie textu "Hladam Satelity"
   display.setCursor(0, 0);
