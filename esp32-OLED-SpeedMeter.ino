@@ -5,6 +5,16 @@
 #include <HardwareSerial.h>
 #include "bitmaps.h"  // Vloženie bitmap knižnice
 
+// ---------------------------------------
+// ! WARNING ! WORKS ON 5VOLTS (USB INPUT)
+// ---------------------------------------
+// ---------------------------------------------------------------------------------------
+// ! IF U WANT TO USE 3.7V Battery,
+// ! USE ! 3.7V Battery with VOLTAGE Booster (3.7 to 5V) !
+// ! and then connect + Output from booster to esp32 Pin "VIN" and - to esp32 Pin "GND" !
+// ---------------------------------------------------------------------------------------
+
+
 // Nastavenie pre OLED displej 128x64
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
