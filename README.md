@@ -14,3 +14,6 @@
 - GND --> GND
 - RX --> TX
 - TX --> RX
+
+# Checkout photo
+! [](ArduinoEsp32GPS-OledBykeSpeedMeter.jpg)
