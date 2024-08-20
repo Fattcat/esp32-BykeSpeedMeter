@@ -18,6 +18,7 @@ HardwareSerial gpsSerial(2);  // Použitie UART2 na ESP32 (RX2/TX2)
 TinyGPSPlus gps;
 
 bool satelliteConnected = false;  // Premenná na sledovanie stavu pripojenia
+int lastMinute = -1;  // Premenná na sledovanie poslednej zobrazenej minúty
 
 void setup() {
   Serial.begin(115200);
@@ -69,45 +70,58 @@ void loop() {
     Serial.println("Satelit pripojeny!");
     display.display();
     delay(2000);
-
-    // Získanie rýchlosti a výšky
-    float speedKmh = gps.speed.kmph();
-    float altitude = gps.altitude.meters();
-
-    // Zobrazenie rýchlosti a výšky
-    display.clearDisplay();
-    display.drawBitmap(0, 10, speedbitmap, 19, 19, SSD1306_WHITE);  // Zobrazenie ikony rýchlosti
-    display.setCursor(20, 10);
-    display.setTextSize(2);
-    display.println(String(speedKmh, 2) + "km/h");
-    Serial.println(String(speedKmh, 2) + "km/h");
-
-    display.drawBitmap(0, 40, vyskabitmap, 20, 20, SSD1306_WHITE);  // Zobrazenie ikony výšky
-    display.setCursor(20, 40);
-    display.setTextSize(2);
-    display.println(String(altitude, 2) + "m");
-    Serial.println(String(altitude, 2) + "m");
-    display.display();
-  } else {
-    // Získanie rýchlosti a výšky a pravidelné zobrazovanie
-    float speedKmh = gps.speed.kmph();
-    float altitude = gps.altitude.meters();
-
-    // Zobrazenie rýchlosti a výšky
-    display.clearDisplay();
-    display.drawBitmap(0, 10, speedbitmap, 19, 19, SSD1306_WHITE);  // Zobrazenie ikony rýchlosti
-    display.setCursor(20, 10);
-    display.setTextSize(2);
-    display.println(String(speedKmh, 2) + "km/h");
-    Serial.println(String(speedKmh, 2) + "km/h");
-
-    display.drawBitmap(0, 40, vyskabitmap, 20, 20, SSD1306_WHITE);  // Zobrazenie ikony výšky
-    display.setCursor(20, 40);
-    display.setTextSize(2);
-    display.println(String(altitude, 2) + " m");
-    Serial.println(String(altitude, 2) + " m");
-    display.display();
   }
 
+  // Získanie rýchlosti, výšky a času
+  float speedKmh = gps.speed.kmph();
+  float altitude = gps.altitude.meters();
+  int hour = gps.time.isValid() ? (gps.time.hour() + 2) % 24 : 0;  // Pridáme 2 hodiny pre časovú zónu Slovenska (UTC+2)
+  int minute = gps.time.isValid() ? gps.time.minute() : 0;
+
+  // Zobrazenie rýchlosti a výšky
+  display.clearDisplay();
+  
+  // Rýchlosť
+  display.drawBitmap(0, 0, speedbitmap, 19, 19, SSD1306_WHITE);
+  display.setCursor(20, 0);
+  display.setTextSize(2);
+  display.println(String(speedKmh, 2) + "km/h");
+
+  Serial.println(String(speedKmh, 2) + "km/h");
+
+  // Výška
+  display.drawBitmap(0, 43, vyskabitmap, 20, 20, SSD1306_WHITE);
+  display.setCursor(25, 50);
+  display.setTextSize(2);
+  display.println(String(altitude, 2) + "m");
+
+  Serial.println(String(altitude, 2) + "m");
+
+  // Zobrazenie času len ak sa zmení minúta
+  if (minute != lastMinute) {
+    // Vymaže starý čas
+    display.fillRect(80, 32, 48, 16, SSD1306_BLACK);  
+    lastMinute = minute;
+  }
+
+  // Vždy zobrazí aktuálny čas
+  displayTime(hour, minute);
+
+  display.display();
+
   delay(700); // Aktualizácia každých 0.7 sekundy
+}
+
+void displayTime(int hour, int minute) {
+  display.setCursor(0, 24);  // Nastavenie kurzora na pravú stranu v strede
+  display.setTextSize(2);
+  display.print("Cas:");
+    
+  // Zobrazenie s vedúcimi nulami, ak je to potrebné
+  if (hour < 10) display.print("0");
+  display.print(hour);
+  display.print(":");
+  if (minute < 10) display.print("0");
+  display.print(minute);
+  Serial.println("Autualny Cas: " + String(hour) + ":" + String(minute));
 }
