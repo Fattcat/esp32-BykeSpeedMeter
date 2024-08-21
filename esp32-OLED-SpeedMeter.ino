@@ -81,6 +81,7 @@ void setup() {
   // Zobrazenie textu "Hladam Satelity"
   display.setCursor(0, 0);
   display.println("Hladam Satelity");
+  Serial.println("Hladam Satelity");
   display.display();
 }
 
@@ -138,6 +139,23 @@ void loop() {
   display.println(String(altitude, 2) + "m");
 
   Serial.println(String(altitude, 2) + "m");
+
+
+
+
+  // TOTO JE PRIDANE LEN PRE ZOBRAZENIE V SERIAL MONITORE
+  Serial.print("Sat: ");
+  Serial.println(gps.satellites.value());
+  Serial.print("Lat: ");
+  Serial.println(gps.location.lat(), 6);
+  Serial.print("Lng: ");
+  Serial.println(gps.location.lng(), 6);
+  Serial.print("Alt(m): ");
+  Serial.println(gps.altitude.meters(), 1);
+  // TOTO JE PRIDANE LEN PRE ZOBRAZENIE V SERIAL MONITORE
+
+
+
 
   // Zobrazenie času len ak sa zmení minúta
   if (minute != lastMinute) {
