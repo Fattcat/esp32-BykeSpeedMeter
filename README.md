@@ -10,6 +10,7 @@
 - SDA --> D21
 
 ### TinyGPS Module --> esp32
+- GPS NEO 6M Module cost about 3€ (used in this project)
 - VCC --> 3.3V
 - GND --> GND
 - RX --> TX
