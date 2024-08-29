@@ -11,8 +11,8 @@
 // GPS NEO 6M --> D1 Mini
 // VCC - 3.3V
 // GND - GND
-// TX - D3
-// RX - D4
+// TX - RX 
+// RX - TX
 
 // ------- CONNECTION -------
 
@@ -34,14 +34,12 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 TinyGPSPlus gps;
 
 // Definovanie pinov pre GPS modul
-#define GPS_RX_PIN D3  // GPIO0
-#define GPS_TX_PIN D4  // GPIO2
+#define GPS_RX_PIN RX  // GPIO3
+#define GPS_TX_PIN TX  // GPIO1
 
 void setup() {
-  Serial.begin(115200);
-
-  // Inicializácia hardvérového sériového portu pre GPS modul
-  Serial.swap(); // Presunie hardvérový sériový port na GPIO13 (D7) a GPIO15 (D8)
+  Serial.begin(115200);  // Hlavný sériový port na komunikáciu s PC
+  Serial.swap(); // Swap TX a RX na pinoch D1 Mini
 
   // Inicializácia OLED displeja
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
@@ -56,14 +54,13 @@ void setup() {
   display.setTextSize(1);
 
   // ODPOČÍTAVANIE OD ČÍSLA 3 PO ČÍSLO 1
-  // -----------------------------------------------------------------
   delay(2000);
-  display.drawBitmap(0,0, cislotri, 128, 64, SSD1306_WHITE);
+  display.drawBitmap(0, 0, cislotri, 128, 64, SSD1306_WHITE);
   display.display();
   delay(1000);
   display.clearDisplay();
 
-  display.drawBitmap(0,0, cislodva, 128, 64, SSD1306_WHITE);
+  display.drawBitmap(0, 0, cislodva, 128, 64, SSD1306_WHITE);
   display.display();
   delay(1000);
   display.clearDisplay();
@@ -72,11 +69,10 @@ void setup() {
   display.display();
   delay(1000);
   display.clearDisplay();
-  // -----------------------------------------------------------------
 
   // Zobrazenie "firstlogobitmap"
   delay(200);
-  display.drawBitmap(0,0, logobitmap, 128, 64, SSD1306_WHITE);
+  display.drawBitmap(0, 0, logobitmap, 128, 64, SSD1306_WHITE);
   display.display();
   delay(3000);
 
@@ -144,17 +140,6 @@ void loop() {
   display.println(String(altitude, 2) + "m");
 
   Serial.println(String(altitude, 2) + "m");
-
-  // TOTO JE PRIDANÉ LEN PRE ZOBRAZENIE V SERIAL MONITORE
-  Serial.print("Sat: ");
-  Serial.println(gps.satellites.value());
-  Serial.print("Lat: ");
-  Serial.println(gps.location.lat(), 6);
-  Serial.print("Lng: ");
-  Serial.println(gps.location.lng(), 6);
-  Serial.print("Alt(m): ");
-  Serial.println(gps.altitude.meters(), 1);
-  // TOTO JE PRIDANÉ LEN PRE ZOBRAZENIE V SERIAL MONITORE
 
   // Zobrazenie času len ak sa zmení minúta
   if (minute != lastMinute) {
