@@ -21,7 +21,7 @@
 #include <Adafruit_SSD1306.h>
 #include <TinyGPSPlus.h>
 #include "bitmaps.h"  // Vloženie bitmap knižnice
-
+#include <SPI.h>
 // Nastavenie pre OLED displej 128x64
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -36,6 +36,9 @@ TinyGPSPlus gps;
 // Definovanie pinov pre GPS modul
 #define GPS_RX_PIN RX  // GPIO3
 #define GPS_TX_PIN TX  // GPIO1
+
+bool satelliteConnected = false;  // Deklarácia premennej pre stav pripojenia k satelitu
+int lastMinute = -1;  // Premenná na sledovanie poslednej zobrazenej minúty
 
 void setup() {
   Serial.begin(115200);  // Hlavný sériový port na komunikáciu s PC
