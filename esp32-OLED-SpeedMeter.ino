@@ -6,7 +6,7 @@
 #include "bitmaps.h"  // Vloženie bitmap knižnice
 
 // ---------------------------------------
-// ! WARNING ! WORKS ON 5VOLTS (USB INPUT)
+// ! VAROVANIE ! FUNGUJE NA 5 VOLTOCH (USB INPUT) Nie lipol batéria
 // ---------------------------------------
 // ---------------------------------------------------------------------------------------
 // ! IF U WANT TO USE 3.7V Battery,
@@ -27,7 +27,7 @@ HardwareSerial gpsSerial(2);  // Použitie UART2 na ESP32 (RX2/TX2)
 TinyGPSPlus gps;
 
 bool satelliteConnected = false;  // Premenná na sledovanie stavu pripojenia
-int lastMinute = -1;  // Premenná na sledovanie poslednej zobrazenej minúty
+int lastMinute = -1;  // Premenná na sledovanie poslednej minúty
 
 void setup() {
   Serial.begin(115200);
