@@ -3,11 +3,32 @@
 #include <SD.h>        // Knižnica pre SD kartu
 #include <TinyGPS++.h> // Knižnica pre GPS modul
 
-
 // CONNECTION
+// TFT Display to esp32
 
+// VCC -> 3.3V
+// GND -> GND
+// SCL (or SCK) -> GPIO18
+// SDA -> GPIO23 
+// RES -> GPIO4
+// DC -> GPIO2
+// CS -> GPIO15
 
+// GPS neo 6m Module to esp32 
 
+// VCC -> 3.3V
+// GND -> GND
+// RX -> GPIO17
+// TX -> GPIO16
+
+// SD Card to ESP32
+
+// VCC -> 3.3V
+// GND -> GND
+// CS -> GPIO5
+// SCK -> GPIO18
+// MOSI -> GPIO23
+// MISO -> GPIO19 
 
 TFT_eSPI tft = TFT_eSPI();  // Inštancia TFT displeja
 TinyGPSPlus gps;            // Inštancia GPS knižnice
